@@ -83,6 +83,7 @@ video {
 	}
 	& img {
 		animation: none;
+		max-width: 92vw;
 		filter: invert(100%);
 	}
 }
@@ -486,9 +487,9 @@ video {
 
 /* Animations */
 @keyframes render {
-	0% { background-color: #131313ff; }
-	50% { background-color: #131313a3; }
-	100% { background-color: #131313ff; }
+	0% { background-color: #f5c7e2ff; }
+	50% { background-color: #f5c7e2a3; }
+	100% { background-color: #f5c7e2ff; }
 }
 
 @keyframes reveal {
