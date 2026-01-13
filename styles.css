@@ -31,6 +31,7 @@ footer {
 	padding: 60px 0px 60px 0px;
 	background-color: #f5c7e2ff;
 	font-family: Arial, sans-serif;
+	& p { font-size: 0.72rem; }
 }
 
 a { text-decoration: none; }
