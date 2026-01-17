@@ -29,7 +29,7 @@ footer {
 	flex-direction: column;
 	justify-content: center;
 	padding: 60px 0px 60px 0px;
-	background-color: #f5c7e2ff;
+	background-color: #f6c7e2ff;
 	font-family: Arial, sans-serif;
 	& p { font-size: 0.72rem; }
 }
@@ -483,15 +483,15 @@ video {
 	& a {
 		color: #ffffffff;
 		font-size: 2.56em;
-		font-family: Arial, sans-serif;
+		font-family: 'Brush Script MT', cursive;
 	}
 }
 
 /* Animations */
 @keyframes render {
-	0% { background-color: #f5c7e2ff; }
-	50% { background-color: #f5c7e2a3; }
-	100% { background-color: #f5c7e2ff; }
+	0% { background-color: #f6c7e2ff; }
+	50% { background-color: #f6c7e2a3; }
+	100% { background-color: #f6c7e2ff; }
 }
 
 @keyframes reveal {
