@@ -22,6 +22,8 @@ header {
 	justify-content: space-around;
 }
 
+body { margin: 0px; }
+
 footer {
 	height: 84px;
 	display: flex;
@@ -45,6 +47,7 @@ video {
 	width: 100vw;
 	height: 100vh;
 	/* opacity: 0.64; */
+	display: block;
 	object-fit: cover;
 }
 
@@ -87,7 +90,6 @@ video {
 		width: 768px;
 		animation: none;
 		max-width: 92vw;
-		filter: invert(100%);
 	}
 }
 
@@ -96,17 +98,17 @@ video {
 	& a {
 		float: left;
 		color: #ffffffff;
-		font-size: 1.36em;
+		font-size: 1.16em;
 		transition: 0.32s;
 		margin: 0px 6px 0px 6px;
+		font-family: Arial, sans-serif;
+		font-weight: bold;
 		&:hover { color: #ffffffff; }
 	}
 	& span { color: #ffffffff; }
 }
 
-#content {
-	background-color: #fbeaf4ff;
-}
+#content { background-color: #fbeaf4ff; }
 
 #press {
 	margin: auto;
