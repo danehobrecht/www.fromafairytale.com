@@ -72,7 +72,7 @@ video {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-image: url("assets/images/covers/dane-hobrecht-cover-001.webp");
+	background-image: url("assets/images/covers/cover-001.jpeg");
 }
 
 #name {
@@ -344,12 +344,11 @@ video {
 	}
 }
 
-#biography {
+#shots {
 	overflow: auto;
 	padding-top: 16px;
 	margin: 0px 0px 0px 48px;
 	& img {
-		float: left;
 		width: 100%;
 		height: auto;
 		max-width: 360px;
