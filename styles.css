@@ -103,9 +103,8 @@ video {
 		margin: 0px 6px 0px 6px;
 		font-family: Arial, sans-serif;
 		font-weight: bold;
-		&:hover { color: #ffffffff; }
+		&:hover { opacity: 0.64; }
 	}
-	& span { color: #ffffffff; }
 }
 
 #content { background-color: #fbeaf4ff; }
