@@ -79,8 +79,8 @@ video {
 	& a {
 		color: #ffffffff;
 		font-weight: 700;
-		font-size: 3.06em;
-		font-family: Georgia, serif;
+		font-size: 4.8em;
+		font-family: 'Brush Script MT', cursive;
 	}
 	& img {
 		width: 768px;
