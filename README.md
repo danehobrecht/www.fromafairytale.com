@@ -1,4 +1,4 @@
-[Lighthouse](https://www.fairytale.com/lighthouse) results.
+[Lighthouse](https://www.fromafairytale.com/lighthouse) results.
 
 TODO
 - Use "sparkle" as logo
