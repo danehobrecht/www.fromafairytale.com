@@ -6,3 +6,6 @@ TODO
 - Add "Book Now" button
 - Add contact information
 - Fix various resource resolutions
+- Reserve name and acquire LLC
+- Change font and update all response sizes accordingly
+- Clean styles.css of bloat (only what is absolutely irrelevant)
