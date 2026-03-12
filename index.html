@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From A Fairy Tale | Princess Party Entertainment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink:       #f7c5d5;
+      --pink-deep:  #f0a0be;
+      --pink-light: #fde8f0;
+      --teal:       #7dd4d4;
+      --teal-light: #b8e8e8;
+      --teal-deep:  #5ab8b8;
+      --gold:       #d4af6a;
+      --gold-light: #f0d898;
+      --white:      #fffafd;
+      --text-dark:  #3a2535;
+      --text-mid:   #6b4560;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── SPARKLE CURSOR ─────────────────────────────── */
+    .sparkle {
+      pointer-events: none;
+      position: fixed;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      mix-blend-mode: screen;
+      z-index: 9999;
+      animation: sparkle-fade 0.6s ease forwards;
+    }
+    @keyframes sparkle-fade {
+      0%   { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+
+    /* ─── NAVBAR ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(255,250,253,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,175,106,0.25);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(247,197,213,0.4); }
+
+    .nav-logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.9rem;
+      color: var(--text-mid);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .nav-links a:hover { color: var(--teal-deep); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      background: var(--teal);
+      color: var(--white) !important;
+      padding: 9px 22px;
+      border-radius: 30px;
+      font-size: 0.7rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--teal-deep) !important; transform: translateY(-1px); }
+    .nav-cta::after { display: none !important; }
+
+    /* ─── HAMBURGER (only appears when nav starts breaking) ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text-mid);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: 65px; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(255,250,253,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,175,106,0.2);
+      flex-direction: column;
+      padding: 24px 48px 28px;
+      gap: 18px;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-mid); text-decoration: none;
+      transition: color 0.2s;
+    }
+    #mobile-menu a:hover { color: var(--teal-deep); }
+    #mobile-menu .nav-cta { align-self: flex-start; display: inline-block; }
+
+    @media (max-width: 780px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      #mobile-menu { padding: 24px 24px 28px; }
+    }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #fde8f0 0%, #f7c5d5 45%, #c5e8e8 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 80px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* floating sparkle stars */
+    .star {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.55;
+      animation: float-star linear infinite;
+    }
+    .star::before {
+      content: '✦';
+      font-size: inherit;
+      color: var(--gold-light);
+    }
+    @keyframes float-star {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+      50%  { opacity: 0.7; }
+      100% { transform: translateY(-60px) rotate(180deg); opacity: 0; }
+    }
+
+    .hero-text { position: relative; z-index: 2; }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--teal-deep);
+      font-weight: 600;
+      margin-bottom: 18px;
+      opacity: 0; animation: fade-up 0.8s 0.2s ease forwards;
+    }
+
+    .hero-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      color: var(--text-mid);
+      line-height: 1.1;
+      margin-bottom: 22px;
+      opacity: 0; animation: fade-up 0.8s 0.4s ease forwards;
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 440px;
+      margin-bottom: 38px;
+      opacity: 0; animation: fade-up 0.8s 0.6s ease forwards;
+    }
+
+    .hero-cta-group {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      opacity: 0; animation: fade-up 0.8s 0.8s ease forwards;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink-deep), var(--teal));
+      color: var(--white);
+      padding: 14px 34px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(247,160,190,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(247,160,190,0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-mid);
+      padding: 14px 34px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1.5px solid var(--gold);
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover {
+      background: var(--gold-light);
+      color: var(--text-dark);
+    }
+
+    .hero-image {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; align-items: flex-end;
+      opacity: 0; animation: fade-in 1s 0.5s ease forwards;
+    }
+    .hero-image img {
+      max-height: 80vh;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 60px rgba(247,197,213,0.6));
+    }
+
+    /* decorative blob behind image */
+    .blob {
+      position: absolute;
+      width: 520px; height: 520px;
+      border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+      background: radial-gradient(circle, rgba(180,230,230,0.45) 0%, rgba(247,197,213,0.25) 100%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: blob-morph 8s ease-in-out infinite alternate;
+      z-index: 1;
+    }
+    @keyframes blob-morph {
+      0%   { border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; }
+      100% { border-radius: 40% 60% 45% 55% / 55% 45% 60% 40%; }
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── SECTION SHARED ─────────────────────────────── */
+    section { padding: 100px 80px; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--teal-deep);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      color: var(--text-mid);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .section-lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text-mid);
+      font-weight: 300;
+      max-width: 580px;
+      line-height: 1.8;
+      margin-bottom: 56px;
+    }
+
+    /* ─── SERVICES ───────────────────────────────────── */
+    #services { background: var(--white); }
+    .services-header { text-align: center; }
+    .services-header .section-lead { margin: 0 auto 56px; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: linear-gradient(145deg, var(--pink-light), #fff);
+      border: 1px solid rgba(212,175,106,0.2);
+      border-radius: 20px;
+      padding: 38px 32px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--pink-deep), var(--teal));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .service-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(247,197,213,0.3); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon { font-size: 2.4rem; margin-bottom: 18px; display: block; }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600; font-size: 1.2rem;
+      color: var(--text-mid); margin-bottom: 12px;
+    }
+    .service-card p { font-size: 0.82rem; line-height: 1.8; color: #7a5570; font-weight: 300; }
+
+    /* ─── ABOUT ──────────────────────────────────────── */
+    #about {
+      background: linear-gradient(135deg, #fde8f0 0%, #e8f8f8 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-image-wrap { position: relative; }
+    .about-img-frame {
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 24px 80px rgba(247,197,213,0.4);
+      aspect-ratio: 4/5;
+      background: linear-gradient(145deg, var(--pink), var(--teal-light));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .about-badge {
+      position: absolute; bottom: -16px; right: -16px;
+      background: var(--white);
+      border: 2px solid var(--gold-light);
+      border-radius: 16px; padding: 18px 22px;
+      box-shadow: 0 10px 40px rgba(212,175,106,0.2);
+      text-align: center;
+    }
+    .about-badge .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 600;
+      color: var(--text-mid); display: block;
+    }
+    .about-badge .label {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--teal-deep);
+    }
+
+    .about-content .section-lead { margin-bottom: 36px; }
+    .about-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .about-list li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 0.85rem; line-height: 1.7; color: var(--text-mid);
+    }
+    .about-list li::before {
+      content: '✦'; color: var(--gold); font-size: 0.7rem;
+      margin-top: 4px; flex-shrink: 0;
+    }
+
+    /* ─── PACKAGES ───────────────────────────────────── */
+    #packages { background: var(--white); text-align: center; }
+    #packages .section-lead { margin: 0 auto 56px; }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px; max-width: 960px; margin: 0 auto;
+    }
+
+    .pkg-card {
+      border-radius: 24px; padding: 48px 36px;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .pkg-card:hover { transform: translateY(-6px); }
+    .pkg-card.basic {
+      background: linear-gradient(145deg, #fde8f0, #fff9fb);
+      border: 1.5px solid rgba(240,160,190,0.3);
+    }
+    .pkg-card.royal {
+      background: linear-gradient(145deg, #c5e8e8, #e0f5f5);
+      border: 1.5px solid rgba(125,212,212,0.4);
+    }
+    .pkg-card.enchanted {
+      background: linear-gradient(145deg, var(--text-mid), #4a2545);
+      border: none; color: var(--white);
+    }
+    .pkg-card.enchanted .pkg-name,
+    .pkg-card.enchanted .pkg-price,
+    .pkg-card.enchanted .pkg-desc,
+    .pkg-card.enchanted .pkg-features li { color: var(--pink-light) !important; }
+    .pkg-card.enchanted .pkg-price { color: var(--gold-light) !important; }
+    .pkg-card.enchanted .pkg-badge { background: var(--gold); color: var(--text-dark); }
+
+    .pkg-badge {
+      display: inline-block; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--teal-deep); color: var(--white);
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .pkg-name { font-family: 'Great Vibes', cursive; font-size: 2rem; color: var(--text-mid); margin-bottom: 8px; }
+    .pkg-price { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
+    .pkg-price span { font-size: 1rem; font-weight: 300; }
+    .pkg-desc { font-size: 0.82rem; color: #7a5570; margin-bottom: 28px; line-height: 1.6; }
+    .pkg-features {
+      list-style: none; text-align: left;
+      display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px;
+    }
+    .pkg-features li {
+      font-size: 0.8rem; color: var(--text-mid);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pkg-features li::before { content: '✦'; color: var(--gold); font-size: 0.65rem; }
+    .pkg-btn {
+      display: block; padding: 12px 28px; border-radius: 30px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; text-decoration: none;
+      background: var(--pink-deep); color: var(--white);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .pkg-card.royal .pkg-btn { background: var(--teal-deep); }
+    .pkg-card.enchanted .pkg-btn { background: var(--gold); color: var(--text-dark); }
+    .pkg-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    /* ─── GALLERY ─────────────────────────────────────── */
+    #gallery {
+      background: linear-gradient(160deg, #fde8f0 0%, #c5e8e8 100%);
+      text-align: center;
+    }
+    #gallery .section-lead { margin: 0 auto 56px; }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; max-width: 900px; margin: 0 auto;
+    }
+    .gallery-item {
+      border-radius: 16px; overflow: hidden;
+      background: linear-gradient(145deg, var(--pink), var(--teal-light));
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; transition: transform 0.3s;
+    }
+    .gallery-item:first-child { grid-column: 1 / 3; grid-row: 1; aspect-ratio: 2/1; }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ─── CONTACT ─────────────────────────────────────── */
+    #contact {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .contact-info { padding-top: 8px; }
+    .contact-info .section-lead { margin-bottom: 40px; }
+    .contact-detail { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 24px; }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--pink-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-detail div { font-size: 0.82rem; line-height: 1.7; color: var(--text-mid); }
+    .contact-detail strong {
+      display: block; font-size: 0.7rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--teal-deep); margin-bottom: 2px;
+    }
+
+    .contact-form {
+      background: linear-gradient(145deg, var(--pink-light), #fff9fb);
+      border: 1px solid rgba(212,175,106,0.2);
+      border-radius: 24px; padding: 48px 44px;
+    }
+    .contact-form h3 { font-family: 'Great Vibes', cursive; font-size: 2rem; color: var(--text-mid); margin-bottom: 32px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal-deep); margin-bottom: 8px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid rgba(212,175,106,0.3);
+      border-radius: 10px; background: var(--white);
+      font-family: 'Montserrat', sans-serif; font-size: 0.82rem;
+      color: var(--text-dark); transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none; -webkit-appearance: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(125,212,212,0.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--pink-deep), var(--teal));
+      color: var(--white); border: none; border-radius: 50px;
+      font-family: 'Montserrat', sans-serif; font-size: 0.75rem;
+      font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 8px 30px rgba(247,160,190,0.4);
+    }
+    .form-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--text-mid); color: var(--pink-light);
+      text-align: center; padding: 48px 40px;
+    }
+    footer .footer-logo {
+      font-family: 'Great Vibes', cursive; font-size: 2.2rem;
+      color: var(--gold-light); display: block; margin-bottom: 12px;
+    }
+    footer p { font-size: 0.75rem; opacity: 0.65; letter-spacing: 0.08em; line-height: 1.8; }
+    footer .footer-links {
+      display: flex; justify-content: center; gap: 28px;
+      list-style: none; margin: 20px 0;
+    }
+    footer .footer-links a {
+      font-size: 0.7rem; color: var(--teal-light);
+      text-decoration: none; letter-spacing: 0.1em;
+      text-transform: uppercase; opacity: 0.8; transition: opacity 0.2s;
+    }
+    footer .footer-links a:hover { opacity: 1; }
+    .footer-divider { width: 60px; height: 1px; background: var(--gold); margin: 16px auto; opacity: 0.4; }
+
+    /* ─── SCROLL REVEAL ─────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── MOBILE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 14px 24px; }
+      .nav-links { gap: 18px; }
+      #hero { grid-template-columns: 1fr; padding: 110px 28px 60px; text-align: center; }
+      .hero-cta-group { justify-content: center; }
+      .hero-image { margin-top: 32px; max-height: 60vh; }
+      .hero-subtitle { margin: 0 auto 36px; }
+      section { padding: 72px 28px; }
+      #about, #contact { grid-template-columns: 1fr; gap: 40px; }
+      .about-image-wrap { max-width: 360px; margin: 0 auto; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:first-child { grid-column: 1 / 3; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">From A Fairy Tale</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact" class="nav-cta">Book Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div id="mobile-menu">
+    <a href="#services" onclick="closeMobileMenu()">Services</a>
+    <a href="#about"    onclick="closeMobileMenu()">About</a>
+    <a href="#packages" onclick="closeMobileMenu()">Packages</a>
+    <a href="#gallery"  onclick="closeMobileMenu()">Gallery</a>
+    <a href="#contact"  onclick="closeMobileMenu()" class="nav-cta">Book Now</a>
+  </div>
+
+  <section id="hero">
+    <div class="star" style="font-size:1.2rem; top:15%; left:8%; animation-duration:5s; animation-delay:0s;"></div>
+    <div class="star" style="font-size:0.8rem; top:30%; left:20%; animation-duration:7s; animation-delay:1s;"></div>
+    <div class="star" style="font-size:1.5rem; top:70%; left:5%; animation-duration:6s; animation-delay:2s;"></div>
+    <div class="star" style="font-size:0.9rem; top:20%; right:8%; animation-duration:8s; animation-delay:0.5s;"></div>
+    <div class="star" style="font-size:1.1rem; top:60%; right:12%; animation-duration:5.5s; animation-delay:1.5s;"></div>
+    <div class="star" style="font-size:1.3rem; top:80%; right:20%; animation-duration:7s; animation-delay:3s;"></div>
+
+    <div class="hero-text">
+      <p class="hero-eyebrow">✦ Orange County's Princess Party Experience ✦</p>
+      <h1 class="hero-title">From A<br>Fairy Tale</h1>
+      <p class="hero-subtitle">Let us make your little one's party… a moment they'll believe in forever.</p>
+      <div class="hero-cta-group">
+        <a href="#packages" class="btn-primary">View Packages</a>
+        <a href="#contact" class="btn-secondary">Book Your Day</a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <div class="blob"></div>
+      <img src="cover-001.jpeg" alt="From A Fairy Tale princess characters" />
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="services-header reveal">
+      <span class="section-tag">✦ What We Offer ✦</span>
+      <h2 class="section-title">A World of Wonder</h2>
+      <p class="section-lead">Every service is thoughtfully designed to bring pure magic — and a little sparkle — to your child's most special day.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">👑</span>
+        <h3>Princess Appearances</h3>
+        <p>Your favorite princess arrives in full costume for meet & greets, storytelling, singalongs, and pure royal magic.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🎨</span>
+        <h3>Face Painting</h3>
+        <p>Delicate, child-safe designs — from tiaras and butterflies to your little one's very own princess look.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🎮</span>
+        <h3>Royal Games</h3>
+        <p>Enchanted party games led by the princess herself — customized to the birthday child's favorite characters and themes.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">✨</span>
+        <h3>Princess Anointing</h3>
+        <p>A magical ceremony where every child is crowned and anointed as royalty, complete with a royal decree keepsake.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🎀</span>
+        <h3>Story Time</h3>
+        <p>Bring beloved tales to life with immersive storytelling, character voices, and magical props your guests will adore.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🌟</span>
+        <h3>Photo Moments</h3>
+        <p>Professional-quality photo sessions with your princess — memories to treasure long after the magic fades.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-image-wrap reveal">
+      <div class="about-img-frame">
+        <img src="cover-001.jpeg" alt="Your princess performer" />
+      </div>
+      <div class="about-badge">
+        <span class="num">✦</span>
+        <span class="label">Fairy Tale<br>Certified</span>
+      </div>
+    </div>
+    <div class="about-content reveal">
+      <span class="section-tag">✦ Our Story ✦</span>
+      <h2 class="section-title">The Magic Behind the Crown</h2>
+      <p class="section-lead">We believe every child deserves a moment of pure, unfiltered wonder — where the princess is real, the magic is genuine, and the memory lasts a lifetime.</p>
+      <ul class="about-list">
+        <li>Fully costumed, professionally trained princess performers</li>
+        <li>Safe, child-friendly face paints and materials only</li>
+        <li>Customizable experiences built around your child's favorites</li>
+        <li>Expanding roster of princesses — more characters coming soon</li>
+        <li>Serving Orange County and surrounding areas with royal joy</li>
+        <li>Every visit lovingly crafted to feel truly magical</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="packages">
+    <div class="reveal">
+      <span class="section-tag">✦ Royal Packages ✦</span>
+      <h2 class="section-title">Choose Your Enchantment</h2>
+      <p class="section-lead">Every package is a starting point. We love working with families to create something perfectly, uniquely theirs.</p>
+    </div>
+    <div class="packages-grid">
+      <div class="pkg-card basic reveal">
+        <span class="pkg-badge" style="background:var(--pink-deep);">Starter</span>
+        <p class="pkg-name">The Storybook</p>
+        <p class="pkg-price">$149<span> / event</span></p>
+        <p class="pkg-desc">Perfect for intimate gatherings and first birthday celebrations.</p>
+        <ul class="pkg-features">
+          <li>60-minute princess visit</li>
+          <li>Meet & greet + photos</li>
+          <li>Storytelling session</li>
+          <li>Royal greeting card</li>
+        </ul>
+        <a href="#contact" class="pkg-btn">Inquire Now</a>
+      </div>
+      <div class="pkg-card royal reveal">
+        <span class="pkg-badge">Most Popular</span>
+        <p class="pkg-name">The Royal Ball</p>
+        <p class="pkg-price">$249<span> / event</span></p>
+        <p class="pkg-desc">A full fairy tale experience your guests will talk about for years.</p>
+        <ul class="pkg-features">
+          <li>90-minute princess visit</li>
+          <li>Face painting (up to 10)</li>
+          <li>Royal games & activities</li>
+          <li>Princess anointing ceremony</li>
+          <li>Keepsake royal decree</li>
+        </ul>
+        <a href="#contact" class="pkg-btn">Inquire Now</a>
+      </div>
+      <div class="pkg-card enchanted reveal">
+        <span class="pkg-badge">Premium</span>
+        <p class="pkg-name">The Enchanted</p>
+        <p class="pkg-price">$399<span>+</span></p>
+        <p class="pkg-desc">Go all-in on the magic. Multiple princesses, unlimited wonder.</p>
+        <ul class="pkg-features">
+          <li>2-hour experience</li>
+          <li>Two princess characters</li>
+          <li>Full face painting</li>
+          <li>Games, storytime & anointing</li>
+          <li>Custom party theme</li>
+          <li>Premium photo moments</li>
+        </ul>
+        <a href="#contact" class="pkg-btn">Inquire Now</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="reveal">
+      <span class="section-tag">✦ Memories Made ✦</span>
+      <h2 class="section-title">A Glimpse of the Magic</h2>
+      <p class="section-lead">Every event tells its own story. Here are a few glimpses into the worlds we create.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item" style="background: linear-gradient(145deg, #f7c5d5, #c5e8e8);">
+        <img src="cover-001.jpeg" alt="Princess party" />
+      </div>
+      <div class="gallery-item" style="background: linear-gradient(145deg, #fde8f0, #b8e8e8); font-size:4rem;">👸</div>
+      <div class="gallery-item" style="background: linear-gradient(145deg, #c5e8e8, #f7c5d5); font-size:4rem;">🎀</div>
+      <div class="gallery-item" style="background: linear-gradient(145deg, #fde8f0, #f7c5d5); font-size:4rem;">✨</div>
+      <div class="gallery-item" style="background: linear-gradient(145deg, #d4e8ff, #c5e8e8); font-size:4rem;">🌟</div>
+    </div>
+    <p class="reveal" style="margin-top:36px; font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--text-mid); font-size:1.05rem; opacity:0.8;">More photos coming soon — follow our journey on Instagram ✦</p>
+  </section>
+
+  <section id="contact">
+    <div class="contact-info reveal">
+      <span class="section-tag">✦ Get In Touch ✦</span>
+      <h2 class="section-title">Book Your Fairy Tale</h2>
+      <p class="section-lead">Ready to bring the magic to your child's special day? We'd love to hear from you and create something truly enchanting together.</p>
+      <div class="contact-detail">
+        <div class="contact-icon">📍</div>
+        <div><strong>Location</strong>Orange County, California &amp; Surrounding Areas</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">📧</div>
+        <div><strong>Email</strong>hello@fromafairytale.com</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">📱</div>
+        <div><strong>Phone / Text</strong>Available upon booking inquiry</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">🗓️</div>
+        <div><strong>Availability</strong>Weekends &amp; select weekdays — book early, magic fills up fast!</div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <h3>Send Us a Message</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Jane Smith" /></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone</label><input type="tel" placeholder="(714) 000-0000" /></div>
+        <div class="form-group"><label>Event Date</label><input type="date" /></div>
+      </div>
+      <div class="form-group">
+        <label>Package Interest</label>
+        <select>
+          <option value="">Select a package...</option>
+          <option>The Storybook — $149</option>
+          <option>The Royal Ball — $249</option>
+          <option>The Enchanted — $399+</option>
+          <option>Custom / Not Sure Yet</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell Us About Your Event</label>
+        <textarea placeholder="Birthday child's name, age, favorite princess, number of guests…"></textarea>
+      </div>
+      <button class="form-submit">Send My Inquiry ✦</button>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-logo">From A Fairy Tale</span>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-divider"></div>
+    <p>© 2025 From A Fairy Tale · Orange County, CA · All rights reserved<br>Making your most magical moments a reality ✦</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    function closeMobileMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    document.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.75) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.style.left = (e.clientX - 5) + 'px';
+        s.style.top  = (e.clientY - 5) + 'px';
+        const hue = Math.random() > 0.5 ? '#f0d898' : '#b8e8e8';
+        s.style.background = hue;
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 600);
+      }
+    });
+  </script>
+</body>
+</html>
