@@ -35,16 +35,26 @@
     .sparkle {
       pointer-events: none;
       position: fixed;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--gold-light);
-      mix-blend-mode: screen;
       z-index: 9999;
-      animation: sparkle-fade 0.6s ease forwards;
+      animation: sparkle-life var(--sp-dur, 0.9s) ease forwards;
     }
-    @keyframes sparkle-fade {
-      0%   { transform: scale(1); opacity: 1; }
-      100% { transform: scale(0); opacity: 0; }
+    .sparkle::before {
+      content: '';
+      display: block;
+      width: var(--sp-sz, 10px);
+      height: var(--sp-sz, 10px);
+      background: var(--sp-col, var(--gold-light));
+      /* four-point star */
+      clip-path: polygon(
+        50% 0%, 54% 46%, 100% 50%,
+        54% 54%, 50% 100%, 46% 54%,
+        0% 50%, 46% 46%
+      );
+    }
+    @keyframes sparkle-life {
+      0%   { opacity: 0.9; transform: scale(0.6) rotate(0deg)   translateY(0px);  }
+      35%  { opacity: 1;   transform: scale(1.1) rotate(25deg)  translateY(-4px); }
+      100% { opacity: 0;   transform: scale(0.1) rotate(60deg)  translateY(-10px);}
     }
 
     /* ─── NAVBAR ─────────────────────────────────────── */
@@ -124,10 +134,11 @@
       width: 22px; height: 2px;
       background: var(--text-mid);
       border-radius: 2px;
-      transition: transform 0.3s, opacity 0.3s;
+      transition: transform 0.3s, opacity 0.3s, scaleX 0.3s;
+      transform-origin: center;
     }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(2) { transform: scaleX(0); opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     #mobile-menu {
@@ -197,17 +208,8 @@
       text-transform: uppercase;
       color: var(--teal-deep);
       font-weight: 600;
-      margin-bottom: 18px;
+      margin-bottom: 10px;
       opacity: 0; animation: fade-up 0.8s 0.2s ease forwards;
-    }
-
-    .hero-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(3.5rem, 6vw, 6rem);
-      color: var(--text-mid);
-      line-height: 1.1;
-      margin-bottom: 22px;
-      opacity: 0; animation: fade-up 0.8s 0.4s ease forwards;
     }
 
     .hero-subtitle {
@@ -218,7 +220,16 @@
       font-weight: 300;
       line-height: 1.7;
       max-width: 440px;
-      margin-bottom: 38px;
+      margin-bottom: 10px;
+      opacity: 0; animation: fade-up 0.8s 0.4s ease forwards;
+    }
+
+    .hero-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      color: var(--text-mid);
+      line-height: 1.1;
+      margin-bottom: 28px;
       opacity: 0; animation: fade-up 0.8s 0.6s ease forwards;
     }
 
@@ -269,10 +280,13 @@
       opacity: 0; animation: fade-in 1s 0.5s ease forwards;
     }
     .hero-image img {
-      max-height: 80vh;
-      max-width: 100%;
+      width: 100%;
+      max-height: 82vh;
       object-fit: contain;
+      object-position: bottom center;
       filter: drop-shadow(0 20px 60px rgba(247,197,213,0.6));
+      display: block;
+      border-radius: 24px;
     }
 
     /* decorative blob behind image */
@@ -560,6 +574,16 @@
       box-shadow: 0 8px 30px rgba(247,160,190,0.4);
     }
     .form-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+    b.required { color: var(--teal-deep); font-weight: 700; margin-right: 3px; }
+    .form-privacy {
+      margin-top: 12px;
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: #9a6580;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .form-privacy a { color: var(--teal-deep); text-decoration: underline; }
 
     /* ─── FOOTER ──────────────────────────────────────── */
     footer {
@@ -572,7 +596,7 @@
     }
     footer p { font-size: 0.75rem; opacity: 0.65; letter-spacing: 0.08em; line-height: 1.8; }
     footer .footer-links {
-      display: flex; justify-content: center; gap: 28px;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 16px 28px;
       list-style: none; margin: 20px 0;
     }
     footer .footer-links a {
@@ -641,9 +665,9 @@
     <div class="star" style="font-size:1.3rem; top:80%; right:20%; animation-duration:7s; animation-delay:3s;"></div>
 
     <div class="hero-text">
-      <p class="hero-eyebrow">✦ Orange County's Princess Party Experience ✦</p>
+      <p class="hero-eyebrow">✦ Orange County's Premier Party Experience ✦</p>
+      <p class="hero-subtitle">Let's make your little one's party…</p>
       <h1 class="hero-title">From A<br>Fairy Tale</h1>
-      <p class="hero-subtitle">Let us make your little one's party… a moment they'll believe in forever.</p>
       <div class="hero-cta-group">
         <a href="#packages" class="btn-primary">View Packages</a>
         <a href="#contact" class="btn-secondary">Book Your Day</a>
@@ -652,7 +676,7 @@
 
     <div class="hero-image">
       <div class="blob"></div>
-      <img src="cover-001.jpeg" alt="From A Fairy Tale princess characters" />
+      <img src="assets/images/gallery-001.webp" alt="From A Fairy Tale princess characters" />
     </div>
   </section>
 
@@ -699,7 +723,7 @@
   <section id="about">
     <div class="about-image-wrap reveal">
       <div class="about-img-frame">
-        <img src="cover-001.jpeg" alt="Your princess performer" />
+        <img src="assets/images/gallery-001.webp" alt="Your princess performer" />
       </div>
       <div class="about-badge">
         <span class="num">✦</span>
@@ -781,7 +805,7 @@
     </div>
     <div class="gallery-grid reveal">
       <div class="gallery-item" style="background: linear-gradient(145deg, #f7c5d5, #c5e8e8);">
-        <img src="cover-001.jpeg" alt="Princess party" />
+        <img src="assets/images/gallery-001.webp" alt="Princess party" />
       </div>
       <div class="gallery-item" style="background: linear-gradient(145deg, #fde8f0, #b8e8e8); font-size:4rem;">👸</div>
       <div class="gallery-item" style="background: linear-gradient(145deg, #c5e8e8, #f7c5d5); font-size:4rem;">🎀</div>
@@ -816,29 +840,48 @@
 
     <div class="contact-form reveal">
       <h3>Send Us a Message</h3>
-      <div class="form-row">
-        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Jane Smith" /></div>
-        <div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com" /></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Phone</label><input type="tel" placeholder="(714) 000-0000" /></div>
-        <div class="form-group"><label>Event Date</label><input type="date" /></div>
-      </div>
-      <div class="form-group">
-        <label>Package Interest</label>
-        <select>
-          <option value="">Select a package...</option>
-          <option>The Storybook — $149</option>
-          <option>The Royal Ball — $249</option>
-          <option>The Enchanted — $399+</option>
-          <option>Custom / Not Sure Yet</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Tell Us About Your Event</label>
-        <textarea placeholder="Birthday child's name, age, favorite princess, number of guests…"></textarea>
-      </div>
-      <button class="form-submit">Send My Inquiry ✦</button>
+      <form id="booking-form" method="POST" action="https://api.web3forms.com/submit">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" value="New Party Booking Inquiry — From A Fairy Tale">
+        <input type="hidden" name="redirect" value="https://fromafairytale.com">
+        <input type="checkbox" name="botcheck" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-name"><b class="required">*</b> Your Name</label>
+            <input type="text" id="f-name" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="f-email"><b class="required">*</b> Email</label>
+            <input type="email" id="f-email" name="email" placeholder="you@email.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-phone">Phone</label>
+            <input type="tel" id="f-phone" name="phone" placeholder="(714) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label for="f-date">Event Date</label>
+            <input type="date" id="f-date" name="event_date" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="f-package">Package Interest</label>
+          <select id="f-package" name="package">
+            <option value="">Select a package...</option>
+            <option>The Storybook — $149</option>
+            <option>The Royal Ball — $249</option>
+            <option>The Enchanted — $399+</option>
+            <option>Custom / Not Sure Yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="f-message"><b class="required">*</b> Tell Us About Your Event</label>
+          <textarea id="f-message" name="message" placeholder="Birthday child's name, age, favorite princess, number of guests…" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send My Inquiry ✦</button>
+        <p class="form-privacy">By submitting, you agree to the <a href="https://web3forms.com/privacy" target="_blank">Web3Forms privacy policy</a>.</p>
+      </form>
     </div>
   </section>
 
@@ -852,7 +895,7 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="footer-divider"></div>
-    <p>© 2025 From A Fairy Tale · Orange County, CA · All rights reserved<br>Making your most magical moments a reality ✦</p>
+    <p>© 2025 From A Fairy Tale · Orange County, CA · All rights reserved<br>Making your parties <em>From A Fairy Tale</em> ✦</p>
   </footer>
 
   <script>
@@ -880,17 +923,35 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
+    // elegant cursor sparkle trail — four-point stars, varied size/color/timing
+    const SPARKLE_COLORS = [
+      'var(--gold-light)',
+      '#fff5fb',
+      '#fffafd',
+      'var(--white)',
+    ];
+    let lastSparkle = 0;
     document.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.75) {
-        const s = document.createElement('div');
-        s.className = 'sparkle';
-        s.style.left = (e.clientX - 5) + 'px';
-        s.style.top  = (e.clientY - 5) + 'px';
-        const hue = Math.random() > 0.5 ? '#f0d898' : '#b8e8e8';
-        s.style.background = hue;
-        document.body.appendChild(s);
-        setTimeout(() => s.remove(), 600);
-      }
+      const now = Date.now();
+      if (now - lastSparkle < 50) return;
+      if (Math.random() > 0.58) return;
+      lastSparkle = now;
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      const sz  = 8 + Math.random() * 11;
+      const dur = 0.85 + Math.random() * 0.45;
+      const col = SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)];
+      const ox  = (Math.random() - 0.5) * 18;
+      const oy  = (Math.random() - 0.5) * 18;
+      s.style.cssText = `
+        left: ${e.clientX + ox - sz/2}px;
+        top:  ${e.clientY + oy - sz/2}px;
+        --sp-sz:  ${sz}px;
+        --sp-dur: ${dur}s;
+        --sp-col: ${col};
+      `;
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), dur * 1000 + 50);
     });
   </script>
 </body>
