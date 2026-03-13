@@ -1,29 +1,66 @@
-<!DOCTYPE HTML>
-
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!-- Basic Metadata -->
-		<title>From A Fairy Tale — 404</title>
-		<meta name="robots" content="noindex">
-		<meta name="theme-color" content="#ffc6e5">
-		<meta name="viewport" content="width=device-width">
-		<meta name="msapplication-TileColor" content="#ffc6e5">
-		<meta http-equiv="refresh" content="8.4;url=index.html">
-
-		<!-- CSS Syles -->
-		<link rel="stylesheet" href="styles.css">
-
-		<!-- Favicon and Manifest Links -->
-		<link rel="manifest" href="assets/favicons/site.webmanifest">
-		<link rel="shortcut icon" href="assets/favicons/favicon.ico">
-		<link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
-	</head>
-	<body>
-		<div id="redirect">
-			<a href="https://www.fromafairytale.com">404</a>
-			<p>Oops - looks like that page is from a fairytale!</p>
-		</div>
-	</body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — From A Fairy Tale</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --pink-light: #fde8f0;
+      --text-mid:   #6b4560;
+      --text-dark:  #3a2535;
+      --white:      #fffafd;
+    }
+    html, body {
+      height: 100%;
+      background: var(--pink-light);
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .number {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(8rem, 25vw, 16rem);
+      color: var(--text-mid);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .message {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-mid);
+      opacity: 0.85;
+      margin-bottom: 40px;
+    }
+    .home-link {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--white);
+      background: var(--text-mid);
+      padding: 12px 28px;
+      border-radius: 30px;
+      transition: opacity 0.2s;
+    }
+    .home-link:hover { opacity: 0.8; }
+  </style>
+</head>
+<body>
+  <p class="number">404</p>
+  <p class="message">Oops — looks like that page is from a fairy tale!</p>
+  <a href="/" class="home-link">Back to Home</a>
+</body>
 </html>
