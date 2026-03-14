@@ -218,7 +218,7 @@
       color: var(--teal-deep);
       font-weight: 600;
       margin-bottom: 10px;
-      animation: fade-up 0.8s 0.2s ease both;
+      animation: fade-up 1s 0.1s ease-out both;
     }
 
     .hero-subtitle {
@@ -230,7 +230,7 @@
       line-height: 1.7;
       max-width: 440px;
       margin-bottom: 10px;
-      animation: fade-up 0.8s 0.4s ease forwards;
+      animation: fade-up 1s 0.35s ease-out both;
     }
 
     .hero-title {
@@ -239,12 +239,12 @@
       color: var(--text-mid);
       line-height: 1.1;
       margin-bottom: 28px;
-      animation: fade-up 0.8s 0.6s ease forwards;
+      animation: fade-up 1.1s 0.6s ease-out both;
     }
 
     .hero-cta-group {
       display: flex; gap: 16px; flex-wrap: wrap;
-      animation: fade-up 0.8s 0.8s ease forwards;
+      animation: fade-up 1s 0.9s ease-out both;
     }
 
     .btn-primary {
@@ -286,7 +286,7 @@
     .hero-image {
       position: relative; z-index: 2;
       display: flex; justify-content: center; align-items: flex-end;
-      animation: fade-in 1s 0.5s ease forwards;
+      animation: fade-in 1.4s 0.2s ease-out both;
     }
     .hero-image img {
       width: 100%;
@@ -299,7 +299,7 @@
     }
 
     @keyframes fade-up {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes fade-in {
@@ -769,7 +769,7 @@
         <li>Customizable experiences built around your child's favorites</li>
         <li>Expanding roster of characters — more coming soon</li>
         <li>Serving Orange County and surrounding areas with royal joy</li>
-        <li>Every visit lovingly crafted to feel truly magical</li>
+        <li>Every visit lovingly crafted to feel like pure magic</li>
       </ul>
     </div>
   </section>
@@ -875,7 +875,7 @@
     <div class="contact-info reveal">
       <span class="section-tag">✦ Get In Touch ✦</span>
       <h2 class="section-title">Book Your Fairy Tale</h2>
-      <p class="section-lead">Ready to bring the magic to your next event? We'd love to hear from you and create something truly enchanting together.</p>
+      <p class="section-lead">Ready to bring the magic to your next event? We'd love to hear from you and create something wonderfully unforgettable together.</p>
       <div class="contact-detail">
         <div class="contact-icon"><span class="material-icons-round">explore</span></div>
         <div><strong>Location</strong>Orange County, California &amp; Surrounding Areas</div>
@@ -899,7 +899,6 @@
       <form id="booking-form" method="POST" action="https://api.web3forms.com/submit">
         <input type="hidden" name="access_key" value="ab09f611-9b2c-4815-a9d4-5b6708ec13b9">
         <input type="hidden" name="subject" value="New Party Booking Inquiry — From A Fairy Tale">
-        <input type="hidden" name="redirect" value="https://fromafairytale.com">
         <input type="checkbox" name="botcheck" style="display:none;">
         <div class="form-row">
           <div class="form-group">
@@ -925,6 +924,7 @@
           <label for="f-package">Package Interest</label>
           <select id="f-package" name="package">
             <option value="">Select a package...</option>
+	    <option>The Cameo — $49</option>
             <option>The Storybook — $149</option>
             <option>The Royal Ball — $249</option>
             <option>The Enchanted Castle — $349</option>
@@ -938,6 +938,21 @@
         <button type="submit" class="form-submit">Send My Inquiry ✦</button>
         <p class="form-privacy">By submitting, you agree to the <a href="https://web3forms.com/privacy" target="_blank">Web3Forms privacy policy</a>.</p>
       </form>
+
+      <div id="form-success" style="
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 48px 24px;
+        opacity: 0;
+        transition: opacity 0.8s ease;
+      ">
+        <div style="font-size: 2.8rem; margin-bottom: 20px;">✦</div>
+        <p style="font-family:'Great Vibes',cursive; font-size: 2.4rem; color: var(--text-mid); margin-bottom: 16px;">Your message is on its way!</p>
+        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size: 1.1rem; color: var(--text-mid); opacity: 0.8; max-width: 340px; line-height: 1.7;">We'll be in touch soon to start planning something truly magical.</p>
+      </div>
     </div>
   </section>
 
@@ -983,6 +998,38 @@
     setTimeout(() => {
       revealEls.forEach(el => el.classList.add('visible'));
     }, 1000);
+
+    // form inline swap on success
+    const bookingForm = document.getElementById('booking-form');
+    const formSuccess = document.getElementById('form-success');
+    if (bookingForm) {
+      bookingForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(bookingForm);
+        try {
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST', body: data
+          });
+          const json = await res.json();
+          if (json.success) {
+            // fade form out
+            bookingForm.style.transition = 'opacity 0.6s ease';
+            bookingForm.style.opacity = '0';
+            setTimeout(() => {
+              bookingForm.style.display = 'none';
+              formSuccess.style.display = 'flex';
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  formSuccess.style.opacity = '1';
+                });
+              });
+            }, 600);
+          }
+        } catch (err) {
+          console.error('Form error:', err);
+        }
+      });
+    }
 
     // elegant cursor sparkle trail — four-point stars, varied size/color/timing
     const SPARKLE_COLORS = [
