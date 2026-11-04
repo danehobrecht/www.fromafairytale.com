@@ -50,7 +50,6 @@
     "description": "Orange County's premier character party entertainment. Princess appearances, face painting, coronation ceremonies, and more.",
     "url": "https://www.fromafairytale.com",
     "email": "mailto:hello@fromafairytale.com",
-    "telephone": "+1-657-203-3218",
     "image": "https://www.fromafairytale.com/assets/images/hero-image.webp",
     "priceRange": "$$",
     "areaServed": {
@@ -67,8 +66,7 @@
       "@type": "Person",
       "name": "Kristin Hobrecht",
       "familyName": "Hobrecht",
-      "email": "mailto:hello@fromafairytale.com",
-      "telephone": "+1-657-203-3218"
+      "email": "mailto:hello@fromafairytale.com"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -239,7 +237,7 @@
       text-transform: uppercase;
       transition: background 0.2s, transform 0.2s !important;
     }
-    .nav-cta:hover { background: var(--teal-deep) !important; transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--teal-deep) !important; }
     .nav-cta::after { display: none !important; }
 
     /* ─── HAMBURGER (only appears when nav starts breaking) ── */
@@ -381,7 +379,6 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .btn-primary:hover {
-      transform: translateY(-3px);
       box-shadow: 0 14px 40px rgba(247,160,190,0.5);
     }
 
@@ -490,7 +487,7 @@
       transform: scaleX(0);
       transition: transform 0.3s;
     }
-    .service-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(247,197,213,0.35); }
+    .service-card:hover { box-shadow: 0 20px 60px rgba(247,197,213,0.35); }
     .service-card:hover::before { transform: scaleX(1); }
 
     .service-icon { font-size: 2.4rem; margin-bottom: 18px; display: block; }
@@ -564,7 +561,6 @@
       transition: transform 0.3s;
       display: flex; flex-direction: column;
     }
-    .pkg-card:hover { transform: translateY(-6px); }
     .pkg-card.cameo {
       background: linear-gradient(145deg, #f5eef5, #fdf8fd);
       border: 1.5px solid rgba(180,180,180,0.35);
@@ -637,7 +633,7 @@
     }
     .pkg-card.royal .pkg-btn { background: var(--teal-deep); }
     .pkg-card.enchanted .pkg-btn { background: var(--gold); color: var(--text-dark); }
-    .pkg-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .pkg-btn:hover { filter: brightness(1.1); }
 
     /* ─── GALLERY ─────────────────────────────────────── */
     #gallery {
@@ -720,7 +716,7 @@
       cursor: pointer; transition: opacity 0.2s, transform 0.2s;
       box-shadow: 0 8px 30px rgba(247,160,190,0.4);
     }
-    .form-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+    .form-submit:hover { opacity: 0.9; }
     b.required { color: var(--teal-deep); font-weight: 700; margin-right: 3px; }
     .form-privacy {
       margin-top: 12px;
@@ -787,7 +783,7 @@
     .form-status { margin-top: 14px; font-size: 0.85rem; font-weight: 500; line-height: 1.5; color: var(--text-mid); }
     .form-status:empty { display: none; }
     .form-status a { color: inherit; text-decoration: underline; }
-    .form-submit:disabled { opacity: 0.6; cursor: wait; transform: none; }
+    .form-submit:disabled { opacity: 0.6; cursor: wait; }
     #form-success:focus { outline: none; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
